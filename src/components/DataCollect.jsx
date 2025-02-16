@@ -22,6 +22,8 @@ export default function DataCollect() {
   });
   const [errors, setErrors] = useState({});
 
+  // const [receiptList, setRecepitList] = useState([]);
+
   const addItem = () => {
     setItems([...items, { itemId: uid(), itemName: "", itemPrice: 0 }]);
   };
@@ -57,6 +59,7 @@ export default function DataCollect() {
       recieptItems: items,
     });
 
+    /*
     // Get existing receipts from localStorage, or initialize with an empty array if no data exists
     const savedReceipts = JSON.parse(localStorage.getItem("receipts") || "[]");
 
@@ -77,6 +80,7 @@ export default function DataCollect() {
 
     // Optionally, log it to see the change in the console
     console.log("Receipts saved to localStorage:", updatedReceipts);
+    */
   };
 
   const validateForm = () => {
