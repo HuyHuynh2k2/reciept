@@ -1,0 +1,101 @@
+#root {
+  display: flex;
+  flex-direction: column;
+  font-family: "Courier New", Courier, monospace;
+  background-color: #e3f2fd;
+  padding-bottom: 10rem; /* add extra space in the bottom */
+}
+
+.header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-group {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.header-about {
+  font-family: "Courier New", Courier, monospace;
+  font-weight: bold;
+  font-size: 0.9rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.header-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.header-about:hover {
+  background-color: aqua;
+}
+
+.header-title {
+  box-shadow: 0px 4px 6px -4px rgba(0, 0, 0, 0.2);
+  padding-bottom: 10px;
+}
+
+form div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  border-radius: 0.5rem;
+  margin-top: 10px;
+}
+
+form div p {
+  white-space: nowrap; /* Prevent text wrapping from a new line */
+  width: 200px; /* set the fix width for label */
+  margin: 0.5rem;
+}
+
+form div input,
+form div select {
+  width: 200px;
+  height: 20px;
+  box-sizing: border-box; /* Ensures padding and border are included in width/height */
+  padding: 2px; /* Adjust padding to match */
+  font-size: 12px; /* Standardize font size */
+}
+
+.form-items {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  border: 2px solid black;
+  width: max-content; /* Only take space needed */
+  padding: 1rem;
+  margin: auto; /* Center horizontally */
+  margin-bottom: 15px;
+  margin-top: 15px;
+  background-color: #f9f9f9;
+}
+
+.item-number {
+  display: flex;
+  justify-content: center;
+}
+
+.add-item-button,
+.delete-item-button {
+  display: block;
+  margin: auto;
+  padding: 5px 10px;
+  border-radius: 0.5rem;
+}
+
+.generate-current-recipt-button {
+  display: block;
+  margin: auto;
+  padding: 5px 160px;
+  margin-top: 1rem;
+  border-radius: 0.5rem;
+}
