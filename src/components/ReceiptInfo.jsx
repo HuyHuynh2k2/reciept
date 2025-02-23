@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 export default function ReceiptInfo() {
   // Mock data for testing
   const mockData = {
@@ -12,70 +14,48 @@ export default function ReceiptInfo() {
     ],
   };
 
+  const date = {
+    month: "",
+    day: 0,
+    year: 0,
+  };
+
+  const formatDate = (dateString) => {
+    const parts = dateString.split("-");
+
+    const year = parseInt(parts[0], 10);
+    const month = parseInt(parts[1], 10) - 1;
+    const day = parseInt(parts[2], 10);
+
+    const months = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+
+    date.month = months[month];
+    date.day = day;
+    date.year = year;
+  };
+
   return (
-    <div className="max-w-md mx-auto p-6 border border-gray-300 rounded-lg shadow-lg bg-white">
-      {/* Store Name */}
-      <h2 className="text-xl font-bold text-center mb-4">
-        {mockData.receiptStore}
-      </h2>
-
-      {/* Receipt Details */}
-      <div className="text-sm text-gray-700 space-y-2">
+    <div className="receipt-render-container">
+      <div className="receipt-header">
+        <p>{mockData.receiptStore}</p>
+        <i className="fa-solid fa-basket-shopping"></i>
+        <p>{formatDate(mockData.receiptDate)}</p>
         <p>
-          📅 <strong>Date:</strong> {mockData.receiptDate}
+          {date.month}, {date.day} {date.year}
         </p>
-        <p>
-          💳 <strong>Payment Method:</strong> {mockData.receiptPaymentMethod}
-        </p>
-        <p>
-          📂 <strong>Category:</strong> {mockData.receiptCategory}
-        </p>
-      </div>
-
-      {/* Items Table */}
-      <table className="w-full mt-4 border-collapse border border-gray-300">
-        <thead>
-          <tr className="bg-gray-100">
-            <th className="border border-gray-300 px-2 py-1 text-left">Item</th>
-            <th className="border border-gray-300 px-2 py-1">Qty</th>
-            <th className="border border-gray-300 px-2 py-1">Price</th>
-            <th className="border border-gray-300 px-2 py-1">Total</th>
-          </tr>
-        </thead>
-        <tbody>
-          {mockData.receiptItems.length > 0 ? (
-            mockData.receiptItems.map((item, index) => (
-              <tr key={index} className="border border-gray-300">
-                <td className="border border-gray-300 px-2 py-1">
-                  {item.name}
-                </td>
-                <td className="border border-gray-300 px-2 py-1 text-center">
-                  {item.quantity}
-                </td>
-                <td className="border border-gray-300 px-2 py-1 text-center">
-                  ${item.price.toFixed(2)}
-                </td>
-                <td className="border border-gray-300 px-2 py-1 text-center">
-                  ${(item.price * item.quantity).toFixed(2)}
-                </td>
-              </tr>
-            ))
-          ) : (
-            <tr>
-              <td colSpan="4" className="text-center text-gray-500 py-2">
-                No items
-              </td>
-            </tr>
-          )}
-        </tbody>
-      </table>
-
-      {/* Grand Total */}
-      <div className="text-right text-lg font-bold mt-4">
-        🧾 Grand Total: $
-        {mockData.receiptItems
-          .reduce((total, item) => total + item.price * item.quantity, 0)
-          .toFixed(2)}
       </div>
     </div>
   );

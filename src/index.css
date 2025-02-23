@@ -114,3 +114,13 @@ form div select {
   font-size: 1rem;
   color: red;
 }
+
+.receipt-render-container {
+  display: flex;
+  flex-direction: column;
+  border: 2px solid rgb(232, 207, 207);
+  margin: auto; /* Centers it horizontally */
+  margin-top: 2rem;
+  padding: 1rem 5rem;
+  border-radius: 1rem;
+}
