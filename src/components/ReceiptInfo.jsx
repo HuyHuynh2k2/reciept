@@ -50,12 +50,32 @@ export default function ReceiptInfo() {
   return (
     <div className="receipt-render-container">
       <div className="receipt-header">
-        <p>{mockData.receiptStore}</p>
         <i className="fa-solid fa-basket-shopping"></i>
-        <p>{formatDate(mockData.receiptDate)}</p>
-        <p>
+        <p className="reciept-store">{mockData.receiptStore}</p>
+        {formatDate(mockData.receiptDate)}
+        <p className="receipt-date">
           {date.month}, {date.day} {date.year}
         </p>
+      </div>
+      <div className="receipt-body">
+        <div className="receipt-body-payment">
+          <p>Payement Method:</p>
+          <p>{mockData.receiptPaymentMethod}</p>
+          <p>Category:</p>
+          <p>{mockData.receiptCategory}</p>
+        </div>
+        <div className="receipt-body-items">
+          {mockData.receiptItems.map((item, itemId) => {
+            return (
+              <div key={itemId} className="receipt-item-row">
+                <p>
+                  {item.name} x{item.quantity}
+                </p>
+                <p>${item.price.toFixed(2)}</p>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );

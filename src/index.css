@@ -68,7 +68,7 @@ form div select {
   padding: 2px; /* Adjust padding to match */
   font-size: 16px; /* Standardize font size */
   border-width: 3px;
-  border-radius: 15px;
+  border-radius: 5px;
   padding-left: 10px;
 }
 
@@ -118,9 +118,67 @@ form div select {
 .receipt-render-container {
   display: flex;
   flex-direction: column;
-  border: 2px solid rgb(232, 207, 207);
-  margin: auto; /* Centers it horizontally */
-  margin-top: 2rem;
+  border: 2px solid rgb(229, 237, 240);
+  margin: 2rem auto auto auto; /* top | right | bottom | left */
   padding: 1rem 5rem;
-  border-radius: 1rem;
+  box-shadow: 3px 4px 8px rgba(0, 0, 0, 0.15);
+  border-radius: 0.5rem;
+}
+
+/*Styling Reciept Result*/
+.receipt-header {
+  border-bottom: 2px solid black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 1rem;
+}
+.receipt-header p {
+  margin: 0;
+}
+.receipt-header i {
+  font-size: 1.2rem;
+  padding-bottom: 1rem;
+}
+.reciept-store {
+  font-weight: bold;
+}
+.receipt-date {
+  font-size: 0.9rem;
+}
+
+.receipt-body-payment {
+  display: grid;
+  grid-template-columns: auto 1fr; /* First column adjusts to content, second takes remaining space */
+  gap: 0rem 9rem; /* Adjust spacing */
+  align-items: center; /* Aligns text properly */
+  font-size: 0.9rem;
+  border-bottom: 2px solid black;
+  padding-bottom: 1rem;
+}
+
+.receipt-body-payment p {
+  margin-bottom: 0;
+}
+
+.receipt-body-payment p:nth-child(even) {
+  text-align: right; /* Aligns values to the right */
+}
+
+.receipt-body-items {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  padding-top: 1rem;
+}
+
+.receipt-item-row {
+  display: flex;
+  justify-content: space-between; /* Pushes label to left, value to right */
+  width: 100%;
+}
+
+.receipt-item-row p {
+  margin: 0;
 }

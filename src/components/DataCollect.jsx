@@ -13,12 +13,16 @@ export default function DataCollect() {
   const [date, setDate] = useState("");
   const [paymentMethod, setPaymentMethod] = useState("");
   const [category, setCategory] = useState("");
+  const [tax, setTax] = useState("");
+  const [saving, setSaving] = useState("");
   const [reciept, setReciept] = useState({
-    recieptStore: "",
-    recieptDate: "",
-    recieptPaymentMethod: "",
-    recieptCategory: "",
-    recieptItems: [],
+    receiptStore: "",
+    receiptDate: "",
+    receiptPaymentMethod: "",
+    receiptCategory: "",
+    receiptTax: "",
+    receiptSaving: "",
+    receiptItems: [],
   });
   const [errors, setErrors] = useState({});
 
@@ -52,11 +56,13 @@ export default function DataCollect() {
 
     // Set the receipt data
     setReciept({
-      recieptStore: store,
-      recieptDate: date,
-      recieptPaymentMethod: paymentMethod,
-      recieptCategory: category,
-      recieptItems: items,
+      receiptStore: store,
+      receiptDate: date,
+      receiptPaymentMethod: paymentMethod,
+      receiptCategory: category,
+      receiptTax: tax,
+      receiptSaving: saving,
+      receiptItems: items,
     });
 
     /*
@@ -92,6 +98,9 @@ export default function DataCollect() {
       newErrors.paymentMethod = "Payment method is required";
     if (!category || category === "empty")
       newErrors.category = "Category is required";
+
+    if (!tax || tax === "empty") newErrors.tax = "Tax is required";
+    if (!saving || saving === "empty") newErrors.saving = "Saving is required";
 
     const itemErrors = items.map((item) => {
       const itemError = {};
@@ -166,6 +175,18 @@ export default function DataCollect() {
             <option value="utilities">Utilities</option>
           </select>
           {errors.category && <p className="error">{errors.category}</p>}
+        </div>
+
+        <div>
+          <p>Tax: </p>
+          <input value={tax} onChange={(e) => setTax(e.target.value)} />
+          {errors.tax && <p className="error">{errors.tax}</p>}
+        </div>
+
+        <div>
+          <p>Saving: </p>
+          <input value={saving} onChange={(e) => setSaving(e.target.value)} />
+          {errors.saving && <p className="error">{errors.saving}</p>}
         </div>
 
         {/* Render all items */}
