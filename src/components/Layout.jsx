@@ -9,9 +9,8 @@ export default function Layout(props) {
         <p className="header-group">palmleaf</p>
         <button className="header-about">About</button>
       </div>
-
       <div className="header-title">
-        <h1>Reciept Tracking</h1>
+        <h1>Receipt Tracking</h1>
         <i className="fa-solid fa-receipt"></i>
       </div>
     </header>
