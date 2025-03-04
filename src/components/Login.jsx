@@ -37,58 +37,68 @@ export default function Login({ onLogin }) {
   };
 
   return (
-    <div className="login-container">
-      <h2 className="login-title">{isSignup ? "Sign Up" : "Login"}</h2>
-      <form onSubmit={handleSubmit} className="login-form">
-        {isSignup && (
-          <>
+    <div className="page-container">
+      <div className="login-container">
+        <div className="login-form-container">
+          <h2 className="login-title">{isSignup ? "Sign Up" : "Sign In"}</h2>
+          <form onSubmit={handleSubmit} className="login-form">
+            {isSignup && (
+              <>
+                <div className="form-group">
+                  <label>First Name:</label>
+                  <input
+                    type="text"
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                    required
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Last Name:</label>
+                  <input
+                    type="text"
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                    required
+                  />
+                </div>
+              </>
+            )}
             <div className="form-group">
-              <label>First Name:</label>
+              <label>Email:</label>
               <input
-                type="text"
-                value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 required
               />
             </div>
             <div className="form-group">
-              <label>Last Name:</label>
+              <label>Password:</label>
               <input
-                type="text"
-                value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 required
               />
             </div>
-          </>
-        )}
-        <div className="form-group">
-          <label>Email:</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
+            {error && <p className="error-message">{error}</p>}
+            <button type="submit" className="submit-button">
+              {isSignup ? "Sign Up" : "Sign In"}
+            </button>
+          </form>
         </div>
-        <div className="form-group">
-          <label>Password:</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
+        <div className="welcome-panel">
+          <h2>Welcome to login</h2>
+          <p>Don't have an account?</p>
+          <button
+            onClick={() => setIsSignup(!isSignup)}
+            className="toggle-button"
+          >
+            {isSignup ? "Switch to Login" : "Sign Up"}
+          </button>
         </div>
-        {error && <p className="error-message">{error}</p>}
-        <button type="submit" className="submit-button">
-          {isSignup ? "Sign Up" : "Log In"}
-        </button>
-      </form>
-      <button onClick={() => setIsSignup(!isSignup)} className="toggle-button">
-        <i className="fa-solid fa-exchange-alt"></i>{" "}
-        {isSignup ? "Switch to Login" : "Switch to Sign Up"}
-      </button>
+      </div>
     </div>
   );
 }
