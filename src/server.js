@@ -270,4 +270,41 @@ app.get("/api/all_receipts", async (req, res) => {
   }
 });
 
+app.get("/api/payment_summary", async (req, res) => {
+  console.log("Received request with query:", req.query);
+  try {
+    const { userId, month, year } = req.query;
+    if (!userId || !month || !year) {
+      return res
+        .status(400)
+        .json({ message: "userId, month, and year are required" });
+    }
+
+    const results = await query(
+      `
+      SELECT 
+          d.month,
+          d.year,
+          SUM(r.total_amount) AS total_payments
+      FROM Receipt r
+      LEFT JOIN Date d ON r.receipt_date = d.date_id
+      WHERE r.user_id = ? AND (d.month = ? OR d.month IS NULL) AND (d.year = ? OR d.year IS NULL)
+      GROUP BY d.month, d.year
+      `,
+      [userId, parseInt(month), parseInt(year)]
+    );
+    console.log("Query results:", results);
+
+    const summary =
+      results.length > 0
+        ? results[0]
+        : { month: parseInt(month), year: parseInt(year), total_payments: 0 };
+    console.log("Payment summary:", summary);
+    res.json(summary);
+  } catch (err) {
+    console.error("Error fetching payment summary:", err);
+    res.status(500).json({ message: "Server error", error: err.message });
+  }
+});
+
 app.listen(3001, () => console.log("Server running on port 3001"));
