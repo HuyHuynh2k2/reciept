@@ -1,13 +1,15 @@
 import "../index.css";
 
 export default function Layout(props) {
-  const { children } = props;
+  const { children, logout } = props;
 
   const header = (
     <header>
       <div className="header-bar">
         <p className="header-group">palmleaf</p>
-        <button className="header-about">About</button>
+        <button onClick={logout} className="header-logout">
+          LogOut
+        </button>
       </div>
       <div className="header-title">
         <h1>Receipt Tracking</h1>

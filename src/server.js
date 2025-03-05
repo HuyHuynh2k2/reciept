@@ -192,5 +192,119 @@ app.post("/api/receipts", async (req, res) => {
     res.status(500).json({ message: "Server error", error: err.message });
   }
 });
+/*
+app.get("/api/all_receipts", async (req, res) => {
+  try {
+    const { userId } = req.query;
+    if (!userId) {
+      return res.status(400).json({ message: "userId is required" });
+    }
+    const rows = await query("SELECT * FROM Receipt WHERE user_id = ?", [
+      userId,
+    ]);
+    res.json(rows);
+  } catch (err) {
+    console.error("Error fetching receipts:", err);
+    res.status(500).json({ message: "Server error", error: err.message });
+  }
+});
+*/
+
+app.get("/api/all_receipts", async (req, res) => {
+  try {
+    const { userId } = req.query;
+    if (!userId) {
+      return res.status(400).json({ message: "userId is required" });
+    }
+    // Fetch receipt data
+    const receipts = await query(
+      `
+      SELECT 
+          r.receipt_id,
+          r.user_id,
+          r.total_amount,
+          r.tax_amount,
+          m.merchant_name,
+          c.category_name,
+          d.date,
+          r.payment_method
+      FROM Receipt r
+      LEFT JOIN Merchant m ON r.merchant_id = m.merchant_id
+      LEFT JOIN Date d ON r.receipt_date = d.date_id
+      LEFT JOIN Category c ON r.category_id = c.category_id
+      WHERE r.user_id = ?
+      `,
+      [userId]
+    );
+
+    // Fetch items for each receipt
+    const receiptsWithItems = await Promise.all(
+      receipts.map(async (receipt) => {
+        const itemsResult = await query(
+          "SELECT description, amount FROM ReceiptItem WHERE receipt_id = ?",
+          [receipt.receipt_id]
+        );
+        console.log(`Items for receipt_id ${receipt.receipt_id}:`, itemsResult); // Debug log
+        const items = Array.isArray(itemsResult) ? itemsResult : [];
+        return {
+          receiptStore: receipt.merchant_name || "Unknown Store",
+          receiptDate: receipt.date || "1970-01-01",
+          receiptPaymentMethod: receipt.payment_method || "N/A",
+          receiptCategory: receipt.category_name || "N/A",
+          receiptTax: parseFloat(receipt.tax_amount) || 0,
+          receiptTotal: parseFloat(receipt.total_amount) || 0,
+          receiptItems: items.map((item) => ({
+            description: item.description || "Unknown Item",
+            quantity: 1, // Assuming quantity is not stored; adjust if added
+            amount: parseFloat(item.amount) || 0,
+          })),
+        };
+      })
+    );
+
+    console.log("Receipts sent:", receiptsWithItems); // Debug log
+    res.json(receiptsWithItems);
+  } catch (err) {
+    console.error("Error fetching receipts:", err);
+    res.status(500).json({ message: "Server error", error: err.message });
+  }
+});
+
+app.get("/api/payment_summary", async (req, res) => {
+  console.log("Received request with query:", req.query);
+  try {
+    const { userId, month, year } = req.query;
+    if (!userId || !month || !year) {
+      return res
+        .status(400)
+        .json({ message: "userId, month, and year are required" });
+    }
+
+    const results = await query(
+      `
+      SELECT 
+          d.month,
+          d.year,
+          SUM(r.total_amount) AS total_payments
+      FROM Receipt r
+      LEFT JOIN Date d ON r.receipt_date = d.date_id
+      WHERE r.user_id = ? AND (d.month = ? OR d.month IS NULL) AND (d.year = ? OR d.year IS NULL)
+      GROUP BY d.month, d.year
+      `,
+      [userId, parseInt(month), parseInt(year)]
+    );
+    console.log("Query results:", results);
+
+    const summary =
+      results.length > 0
+        ? results[0]
+        : { month: parseInt(month), year: parseInt(year), total_payments: 0 };
+    console.log("Payment summary:", summary);
+    res.json(summary);
+  } catch (err) {
+    console.error("Error fetching payment summary:", err);
+    res.status(500).json({ message: "Server error", error: err.message });
+  }
+});
 
 app.listen(3001, () => console.log("Server running on port 3001"));

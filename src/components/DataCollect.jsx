@@ -214,16 +214,24 @@ export default function DataCollect({ userId, onReceiptGenerated }) {
               <p className="error">{errors.items[index].price}</p>
             )}
           </div>
-          <button type="button" onClick={() => deleteItem(item.itemId)}>
+          <button
+            className="delete-item-button"
+            type="button"
+            onClick={() => deleteItem(item.itemId)}
+          >
             <i className="fa-solid fa-trash-can"></i>
           </button>
         </div>
       ))}
 
-      <button type="button" onClick={addItem}>
+      <button className="add-item-button" type="button" onClick={addItem}>
         <i className="fa-solid fa-plus"></i>
       </button>
-      <button type="button" onClick={handleRenderReceipt}>
+      <button
+        className="generate-current-receipt-button"
+        type="button"
+        onClick={handleRenderReceipt}
+      >
         Generate Receipt
       </button>
       {errors.api && <p className="error">{errors.api}</p>}
