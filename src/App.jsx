@@ -27,7 +27,6 @@ function App() {
   const [monthlyTrend, setMonthlyTrend] = useState([]);
   const [expandedSection, setExpandedSection] = useState(null); // Track expanded sidebar section
 
-  // Fetch Handlers (unchanged from your code)
   const handleMonthlyTrendFetch = () => {
     const fetchMonthlyTrend = async () => {
       try {
