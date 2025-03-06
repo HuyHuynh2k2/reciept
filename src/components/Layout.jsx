@@ -4,11 +4,11 @@ export default function Layout(props) {
   const { children, logout } = props;
 
   const header = (
-    <header>
+    <header className="app-header">
       <div className="header-bar">
         <p className="header-group">palmleaf</p>
         <button onClick={logout} className="header-logout">
-          LogOut
+          Log Out
         </button>
       </div>
       <div className="header-title">
@@ -19,9 +19,9 @@ export default function Layout(props) {
   );
 
   return (
-    <>
+    <div className="layout-container">
       {header}
-      {children}
-    </>
+      <main className="layout-content">{children}</main>
+    </div>
   );
 }

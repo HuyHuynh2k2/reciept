@@ -13,7 +13,7 @@ body {
   height: 100%; /* Ensures body takes full height */
 }
 
-.header-bar {
+/* .header-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -49,6 +49,63 @@ body {
 .header-title {
   box-shadow: 0px 4px 6px -4px rgba(0, 0, 0, 0.668);
   padding-bottom: 2rem;
+} */
+
+.app-header {
+  background-color: #b95f62d4; /* Pink from Material Design */
+  color: white;
+  padding: 15px 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for elevation */
+}
+
+.header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.header-group {
+  font-size: 24px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin: 0;
+  letter-spacing: 1px;
+}
+
+.header-logout {
+  background-color: transparent;
+  border: 2px solid #ffffff;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.header-logout:hover {
+  background-color: #ffffff;
+  color: #e91e63;
+}
+
+.header-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+  gap: 10px;
+}
+
+.header-title h1 {
+  font-size: 40px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.header-title i {
+  font-size: 24px;
 }
 
 form div {
@@ -410,3 +467,344 @@ form div select {
   background-color: #cb9090;
   cursor: not-allowed;
 }
+
+.payment_summary {
+  margin: auto;
+  margin-top: 4rem;
+}
+
+.tax-summary {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #f9ebea; /* Light pinkish background */
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  margin: 2rem auto;
+  border: 2px solid #d81b60; /* Darker pink border */
+}
+
+.tax-summary h2 {
+  font-size: 24px;
+  color: #d81b60; /* Pinkish-red text */
+  margin-bottom: 15px;
+}
+
+.tax-summary p {
+  font-size: 18px;
+  color: #333; /* Dark gray text */
+  margin: 5px 0;
+}
+
+.top-category {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #e8f5e9; /* Light green background */
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  margin: 2rem auto;
+  border: 2px solid #4caf50; /* Green border */
+}
+
+.top-category h2 {
+  font-size: 24px;
+  color: #4caf50; /* Green text */
+  margin-bottom: 15px;
+}
+
+.top-category p {
+  font-size: 18px;
+  color: #333; /* Dark gray text */
+  margin: 5px 0;
+}
+
+.total-spending {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #e3f2fd; /* Light blue background */
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  margin: 2rem auto;
+  border: 2px solid #1976d2; /* Blue border */
+}
+
+.total-spending h2 {
+  font-size: 24px;
+  color: #1976d2; /* Blue text */
+  margin-bottom: 15px;
+}
+
+.total-spending p {
+  font-size: 18px;
+  color: #333;
+  margin: 5px 0;
+}
+
+.average-receipt {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff3e0; /* Light orange background */
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  margin: 2rem auto;
+  border: 2px solid #f57c00; /* Orange border */
+}
+
+.average-receipt h2 {
+  font-size: 24px;
+  color: #f57c00; /* Orange text */
+  margin-bottom: 15px;
+}
+
+.average-receipt p {
+  font-size: 18px;
+  color: #333;
+  margin: 5px 0;
+}
+
+.top-payment-method {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #f3e5f5; /* Light purple background */
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  margin: 2rem auto;
+  border: 2px solid #7b1fa2; /* Purple border */
+}
+
+.top-payment-method h2 {
+  font-size: 24px;
+  color: #7b1fa2; /* Purple text */
+  margin-bottom: 15px;
+}
+
+.top-payment-method p {
+  font-size: 18px;
+  color: #333;
+  margin: 5px 0;
+}
+
+.avg-tax {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #e8eaf6; /* Light indigo */
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  margin: 2rem auto;
+  border: 2px solid #3f51b5; /* Indigo */
+}
+
+.avg-tax h2 {
+  font-size: 24px;
+  color: #3f51b5;
+  margin-bottom: 15px;
+}
+
+.avg-tax p {
+  font-size: 18px;
+  color: #333;
+  margin: 5px 0;
+}
+
+.receipt-count {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #f9fbe7; /* Light lime */
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  margin: 2rem auto;
+  border: 2px solid #9e9d24; /* Lime */
+}
+
+.receipt-count h2 {
+  font-size: 24px;
+  color: #9e9d24;
+  margin-bottom: 15px;
+}
+
+.receipt-count p {
+  font-size: 18px;
+  color: #333;
+  margin: 5px 0;
+}
+
+.top-tax-category {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #fce4ec; /* Light pink */
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  margin: 2rem auto;
+  border: 2px solid #d81b60; /* Pink */
+}
+
+.top-tax-category h2 {
+  font-size: 24px;
+  color: #d81b60;
+  margin-bottom: 15px;
+}
+
+.top-tax-category p {
+  font-size: 18px;
+  color: #333;
+  margin: 5px 0;
+}
+
+.payment-method-spending {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #e0f2f1; /* Light teal */
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  margin: 2rem auto;
+  border: 2px solid #26a69a; /* Teal */
+}
+
+.payment-method-spending h2 {
+  font-size: 24px;
+  color: #26a69a;
+  margin-bottom: 15px;
+}
+
+.payment-method-spending div {
+  margin: 10px 0;
+}
+
+.payment-method-spending p {
+  font-size: 18px;
+  color: #333;
+  margin: 5px 0;
+}
+
+.monthly-trend {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff3e0; /* Light orange */
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  margin: 2rem auto;
+  border: 2px solid #f57c00; /* Orange */
+}
+
+.monthly-trend h2 {
+  font-size: 24px;
+  color: #f57c00;
+  margin-bottom: 15px;
+}
+
+.monthly-trend div {
+  margin: 10px 0;
+}
+
+.monthly-trend p {
+  font-size: 18px;
+  color: #333;
+  margin: 5px 0;
+}
+
+.app-container {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 250px;
+  background-color: #f4f4f4;
+  padding: 20px;
+  border-right: 2px solid #ddd;
+  font-family: "Courier New", Courier, monospace;
+}
+
+.sidebar-section {
+  margin-bottom: 15px;
+}
+
+.sidebar-header {
+  width: 100%;
+  background-color: #cb9090;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  text-align: left;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.sidebar-header:hover {
+  background-color: #b07b7b;
+}
+
+.sidebar-options {
+  margin-top: 10px;
+  padding-left: 15px;
+}
+
+.sidebar-options button {
+  display: block;
+  width: 100%;
+  background-color: #fff;
+  color: #333;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  text-align: left;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.sidebar-options button:hover {
+  background-color: #e0e0e0;
+  color: #000;
+}
+
+.content-area {
+  flex: 1;
+  padding: 20px;
+  background-color: #fff;
+}
+
+/* Existing styles for views (e.g., .payment-summary, .tax-summary, etc.) remain unchanged */

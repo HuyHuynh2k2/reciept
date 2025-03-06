@@ -307,4 +307,273 @@ app.get("/api/payment_summary", async (req, res) => {
   }
 });
 
+app.get("/api/tax_summary", async (req, res) => {
+  console.log("Received tax summary request with query:", req.query);
+  try {
+    const { userId } = req.query;
+    if (!userId) {
+      return res.status(400).json({ message: "userId is required" });
+    }
+
+    const results = await query(
+      `
+      SELECT 
+          SUM(r.tax_amount) AS total_tax
+      FROM Receipt r
+      WHERE r.user_id = ?
+      `,
+      [userId]
+    );
+    console.log("Tax query results:", results);
+
+    const summary = results.length > 0 ? results[0] : { total_tax: 0 };
+    console.log("Tax summary:", summary);
+    res.json(summary);
+  } catch (err) {
+    console.error("Error fetching tax summary:", err);
+    res.status(500).json({ message: "Server error", error: err.message });
+  }
+});
+
+app.get("/api/top_category", async (req, res) => {
+  console.log("Received top category request with query:", req.query);
+  try {
+    const { userId } = req.query;
+    if (!userId) {
+      return res.status(400).json({ message: "userId is required" });
+    }
+
+    const results = await query(
+      `
+      SELECT 
+          c.category_name,
+          SUM(r.total_amount) AS total_spent
+      FROM Receipt r
+      LEFT JOIN Category c ON r.category_id = c.category_id
+      WHERE r.user_id = ?
+      GROUP BY c.category_id, c.category_name
+      ORDER BY total_spent DESC
+      LIMIT 1
+      `,
+      [userId]
+    );
+    console.log("Top category query results:", results);
+
+    const summary =
+      results.length > 0
+        ? results[0]
+        : { category_name: "None", total_spent: 0 };
+    console.log("Top category summary:", summary);
+    res.json(summary);
+  } catch (err) {
+    console.error("Error fetching top category:", err);
+    res.status(500).json({ message: "Server error", error: err.message });
+  }
+});
+
+app.get("/api/total_spending", async (req, res) => {
+  console.log("Received total spending request with query:", req.query);
+  try {
+    const { userId } = req.query;
+    if (!userId) {
+      return res.status(400).json({ message: "userId is required" });
+    }
+
+    const results = await query(
+      `
+      SELECT 
+          SUM(r.total_amount) AS total_spending
+      FROM Receipt r
+      WHERE r.user_id = ?
+      `,
+      [userId]
+    );
+    console.log("Total spending query results:", results);
+
+    const summary = results.length > 0 ? results[0] : { total_spending: 0 };
+    console.log("Total spending summary:", summary);
+    res.json(summary);
+  } catch (err) {
+    console.error("Error fetching total spending:", err);
+    res.status(500).json({ message: "Server error", error: err.message });
+  }
+});
+
+app.get("/api/average_receipt", async (req, res) => {
+  console.log("Received average receipt request with query:", req.query);
+  try {
+    const { userId } = req.query;
+    if (!userId) {
+      return res.status(400).json({ message: "userId is required" });
+    }
+
+    const results = await query(
+      `
+      SELECT 
+          AVG(r.total_amount) AS average_amount
+      FROM Receipt r
+      WHERE r.user_id = ?
+      `,
+      [userId]
+    );
+    console.log("Average receipt query results:", results);
+
+    const summary = results.length > 0 ? results[0] : { average_amount: 0 };
+    console.log("Average receipt summary:", summary);
+    res.json(summary);
+  } catch (err) {
+    console.error("Error fetching average receipt:", err);
+    res.status(500).json({ message: "Server error", error: err.message });
+  }
+});
+
+app.get("/api/top_payment_method", async (req, res) => {
+  console.log("Received top payment method request with query:", req.query);
+  try {
+    const { userId } = req.query;
+    if (!userId) {
+      return res.status(400).json({ message: "userId is required" });
+    }
+
+    const results = await query(
+      `
+      SELECT 
+          r.payment_method,
+          COUNT(*) AS usage_count
+      FROM Receipt r
+      WHERE r.user_id = ?
+      GROUP BY r.payment_method
+      ORDER BY usage_count DESC
+      LIMIT 1
+      `,
+      [userId]
+    );
+    console.log("Top payment method query results:", results);
+
+    const summary =
+      results.length > 0
+        ? results[0]
+        : { payment_method: "None", usage_count: 0 };
+    console.log("Top payment method summary:", summary);
+    res.json(summary);
+  } catch (err) {
+    console.error("Error fetching top payment method:", err);
+    res.status(500).json({ message: "Server error", error: err.message });
+  }
+});
+
+app.get("/api/avg_tax", async (req, res) => {
+  try {
+    const { userId } = req.query;
+    if (!userId) return res.status(400).json({ message: "userId is required" });
+    const results = await query(
+      `
+      SELECT AVG(tax_amount) AS avg_tax
+      FROM Receipt
+      WHERE user_id = ?
+      `,
+      [userId]
+    );
+    const summary = results.length > 0 ? results[0] : { avg_tax: 0 };
+    res.json(summary);
+  } catch (err) {
+    console.error("Error:", err);
+    res.status(500).json({ message: "Server error", error: err.message });
+  }
+});
+
+app.get("/api/receipt_count", async (req, res) => {
+  try {
+    const { userId } = req.query;
+    if (!userId) return res.status(400).json({ message: "userId is required" });
+    const results = await query(
+      `
+      SELECT COUNT(*) AS total_receipts
+      FROM Receipt
+      WHERE user_id = ?
+      `,
+      [userId]
+    );
+    const summary = results.length > 0 ? results[0] : { total_receipts: 0 };
+    res.json(summary);
+  } catch (err) {
+    console.error("Error:", err);
+    res.status(500).json({ message: "Server error", error: err.message });
+  }
+});
+
+app.get("/api/top_tax_category", async (req, res) => {
+  try {
+    const { userId } = req.query;
+    if (!userId) return res.status(400).json({ message: "userId is required" });
+    const results = await query(
+      `
+      SELECT c.category_name, SUM(r.tax_amount) AS total_tax
+      FROM Receipt r
+      LEFT JOIN Category c ON r.category_id = c.category_id
+      WHERE r.user_id = ?
+      GROUP BY c.category_id, c.category_name
+      ORDER BY total_tax DESC
+      LIMIT 1
+      `,
+      [userId]
+    );
+    const summary =
+      results.length > 0 ? results[0] : { category_name: "None", total_tax: 0 };
+    res.json(summary);
+  } catch (err) {
+    console.error("Error:", err);
+    res.status(500).json({ message: "Server error", error: err.message });
+  }
+});
+
+app.get("/api/payment_method_spending", async (req, res) => {
+  try {
+    const { userId } = req.query;
+    if (!userId) return res.status(400).json({ message: "userId is required" });
+    const results = await query(
+      `
+      SELECT payment_method, SUM(total_amount) AS total_spent
+      FROM Receipt
+      WHERE user_id = ?
+      GROUP BY payment_method
+      ORDER BY total_spent DESC
+      `,
+      [userId]
+    );
+    res.json(
+      results.length > 0
+        ? results
+        : [{ payment_method: "None", total_spent: 0 }]
+    );
+  } catch (err) {
+    console.error("Error:", err);
+    res.status(500).json({ message: "Server error", error: err.message });
+  }
+});
+
+app.get("/api/monthly_trend", async (req, res) => {
+  try {
+    const { userId } = req.query;
+    if (!userId) return res.status(400).json({ message: "userId is required" });
+    const results = await query(
+      `
+      SELECT d.month, d.year, SUM(r.total_amount) AS monthly_total
+      FROM Receipt r
+      LEFT JOIN Date d ON r.receipt_date = d.date_id
+      WHERE r.user_id = ?
+      GROUP BY d.year, d.month
+      ORDER BY d.year, d.month
+      `,
+      [userId]
+    );
+    res.json(
+      results.length > 0 ? results : [{ month: 0, year: 0, monthly_total: 0 }]
+    );
+  } catch (err) {
+    console.error("Error:", err);
+    res.status(500).json({ message: "Server error", error: err.message });
+  }
+});
+
 app.listen(3001, () => console.log("Server running on port 3001"));
